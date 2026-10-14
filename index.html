@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A CSALÁD - Rezgéskompatibilitási Teszt</title>
+  <style>
+    :root {
+      --bg: #12100e;
+      --card-bg: #1c1815;
+      --border: #4a3828;
+      --accent: #d97724;
+      --accent-glow: #ff9800;
+      --text: #ecd9b9;
+      --text-muted: #a3907c;
+      --cinema: #e63946;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-family);
+      line-height: 1.5;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 540px;
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+      border-bottom: 1px dashed var(--border);
+      padding-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(217, 119, 36, 0.4);
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      color: var(--accent);
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #0d0b0a;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    input[type="text"]:focus {
+      outline: 2px solid var(--accent);
+    }
+
+    .question-block {
+      margin-top: 24px;
+      padding: 16px;
+      background: rgba(0,0,0,0.3);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .question-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: #fff;
+    }
+
+    .question-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: var(--border);
+      color: var(--accent-glow);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-btn {
+      padding: 12px 14px;
+      background: #25201c;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .option-btn:hover {
+      border-color: var(--accent);
+      background: #2e2621;
+    }
+
+    .option-btn.selected {
+      background: var(--accent);
+      color: #000;
+      font-weight: bold;
+      border-color: var(--accent-glow);
+    }
+
+    .btn-action {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin-top: 24px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-glow);
+    }
+
+    .btn-secondary {
+      background: #332b24;
+      color: var(--text);
+      border: 1px solid var(--border);
+      margin-top: 10px;
+    }
+
+    .hidden { display: none !important; }
+
+    /* Eredmény nézet */
+    .result-screen {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .percent-box {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--accent-glow);
+      text-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
+      margin: 10px 0;
+    }
+
+    .verdict-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .verdict-desc {
+      font-size: 0.95rem;
+      color: var(--text);
+      background: #221d19;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+
+    .players-list {
+      text-align: left;
+      font-size: 0.85rem;
+      background: #151210;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>A CSALÁD</h1>
+    <div class="subtitle">Rezgéskompatibilitási Beavatás</div>
+  </header>
+
+  <!-- Belépő képernyő -->
+  <div id="step-login">
+    <div class="form-group">
+      <label for="team-name">Csapat Neve / Kódja (pl. 4-es asztal):</label>
+      <input type="text" id="team-name" placeholder="Írd be a csapat nevét...">
+    </div>
+    <div class="form-group">
+      <label for="player-name">A Te Neved / Beceneved:</label>
+      <input type="text" id="player-name" placeholder="Hogy hívnak?">
+    </div>
+    <button class="btn-action btn-primary" onclick="startQuiz()">Tovább a kérdésekhez ➔</button>
+  </div>
+
+  <!-- Kérdések képernyő -->
+  <div id="step-quiz" class="hidden">
+    <div id="questions-wrapper"></div>
+    <button class="btn-action btn-primary" onclick="submitAnswers()">Válaszok Beküldése 👁️</button>
+  </div>
+
+  <!-- Eredmény képernyő -->
+  <div id="step-result" class="hidden result-screen">
+    <div class="players-list" id="team-status"></div>
+    <div class="percent-box" id="result-percent">---%</div>
+    <div class="verdict-title" id="result-title"></div>
+    <div class="verdict-desc" id="result-desc"></div>
+    
+    <button class="btn-action btn-secondary" onclick="addAnotherMember()">+ Újabb csapattag kitöltése</button>
+    <button class="btn-action btn-primary" onclick="resetAll()">Új Csapat Kezdése</button>
+  </div>
+</div>
+
+<script>
+  // A 7 KÉRDÉS ÉS VÁLASZAI
+  const questions = [
+    {
+      id: 1,
+      badge: "KÉPES / FANTASY",
+      title: "1. Milyen dinoszaurusz lennél legszívesebben egy átlagos kedd délután?",
+      options: [
+        { key: "A", text: "🦖 T-Rex: Apró kezekkel idegesen kapálózom, és ráüvöltök mindenkire." },
+        { key: "B", text: "🦕 Stegosaurus: Békés növényevő, de dühömben mindent leverek a polcról." },
+        { key: "C", text: "🦎 Velociraptor: Susmusolok a sarokban és kaotikus terveket szövök." },
+        { key: "D", text: "🦅 Pterodactylus: Véletlenül berepültem a Lidlbe és nincs meg a kijárat." }
+      ]
+    },
+    {
+      id: 2,
+      badge: "KÉPES / GYÜMÖLCS",
+      title: "2. Melyik gyümölcs rezonál leginkább a jelenlegi lélekállapotoddal?",
+      options: [
+        { key: "A", text: "🍋 Citrom: Kívül vidám és sárga, de ha túl közel jössz, összerándulsz tőlem." },
+        { key: "B", text: "🍌 Barna túlérett banán: Fáradtan fekszem a kosár alján, banánkenyérnek még jó." },
+        { key: "C", text: "🍍 Ananász: Szúrós, agresszív külső, belül meglepően édes." },
+        { key: "D", text: "🍉 Görögdinnye: Nehéz, gurul, és ha felrobbansz, minden ragadni fog." }
+      ]
+    },
+    {
+      id: 3,
+      badge: "SZÖVEGES / ÉJSZAKA",
+      title: "3. Éjjel 2:43-kor nyitva áll a hűtőajtó előtted. Mit csinálsz a hűs fényben?",
+      options: [
+        { key: "A", text: "Bamba tekintettel nézem a tejfölt, majd kézzel bekapok egy szelet parizert." },
+        { key: "B", text: "Mély világmegváltó belső monológot folytatok a hideg pörkölttel." },
+        { key: "C", text: "Kiveszem a vajat, megszagolom, visszateszem, mintha itt sem lettem volna." },
+        { key: "D", text: "Üveges szemmel várom, hogy valami a semmiből átváltozzon pizzává." }
+      ]
+    },
+    {
+      id: 4,
+      badge: "KÉPES / MACSKA",
+      title: "4. Melyik macska definiálja a mostani pillanatodat?",
+      options: [
+        { key: "A", text: "😾 Morcos macska: Bárki hozzám ér vagy megszólít, annak annyi." },
+        { key: "B", text: "🙀 Pánikoló tág pupillás macska: Gőzöm sincs, mi van, de félek." },
+        { key: "C", text: "🛋️ Lefolyó tészta macska: Folyékony halmazállapotú vagyok a kanapén." },
+        { key: "D", text: "🌪️ Függönyön pörgő macska: Éjjel 3 van, pörög az agyam, lángol a világ!" }
+      ]
+    },
+    {
+      id: 5,
+      badge: "KÉPES / JÁRMŰ",
+      title: "5. Ha kapnál egy autót egyetlen őrült körre, melyik kulcsáért nyúlnál?",
+      options: [
+        { key: "A", text: "🚗 Sötétített 1.9 TDI Golf: Füstöljön, kormoljon, lakossági techno maximálison." },
+        { key: "B", text: "🚙 Piros Trabant 601: Semmi fék, semmi biztonság, tiszta benzingőz." },
+        { key: "C", text: "🚛 Narancssárga kukásautó: Felállok hátra a fellépőre és integetek a népnek." },
+        { key: "D", text: "🛴 Roller beragadt dudával: Bizonytalan, instabil, de megállíthatatlan káosz." }
+      ]
+    },
+    {
+      id: 6,
+      badge: "SZÖVEGES / TILTÁS",
+      title: "6. Mivel lehet a leggyorsabban felidegesíteni téged?",
+      options: [
+        { key: "A", text: "Aki a mikróban hagy 1 másodpercet és ott villog a kijelző." },
+        { key: "B", text: "Aki hangosan rágja a csipszet vagy szürcsöli a forró teát." },
+        { key: "C", text: "Aki megkérdezi hétfőn, hogy 'Na, mi volt a hétvégén?'" },
+        { key: "D", text: "Aki küld egy 'Beszélnünk kell...' üzenetet, majd 4 órára eltűnik." }
+      ]
+    },
+    {
+      id: 7,
+      badge: "SZÖVEGES / KÁOSZ",
+      title: "7. Egy random 100 fős tömegrendezvényen hol találnak meg 20 perc után?",
+      options: [
+        { key: "A", text: "A konyhában, mély beszélgetésben a házigazda kutyájával." },
+        { key: "B", text: "A legmélyebb fotelben, próbálok észrevétlenül aludni." },
+        { key: "C", text: "A sarokban, ahol idegeneknek magyarázom a világösszeesküvést." },
+        { key: "D", text: "Én vezetem a spontán vonatozást a tánctér közepén." }
+      ]
+    }
+  ];
+
+  let selectedAnswers = {};
+
+  function startQuiz() {
+    const team = document.getElementById("team-name").value.trim();
+    const player = document.getElementById("player-name").value.trim();
+
+    if (!team || !player) {
+      alert("Kérlek add meg a csapat és a te nevedet is!");
+      return;
+    }
+
+    renderQuestions();
+    document.getElementById("step-login").classList.add("hidden");
+    document.getElementById("step-quiz").classList.remove("hidden");
+    window.scrollTo(0,0);
+  }
+
+  function renderQuestions() {
+    const wrapper = document.getElementById("questions-wrapper");
+    wrapper.innerHTML = "";
+
+    questions.forEach(q => {
+      const qDiv = document.createElement("div");
+      qDiv.className = "question-block";
+      qDiv.innerHTML = `
+        <span class="question-badge">${q.badge}</span>
+        <div class="question-title">${q.title}</div>
+        <div class="options" id="opt-group-${q.id}">
+          ${q.options.map(opt => `
+            <button type="button" class="option-btn" onclick="selectOption(${q.id}, '${opt.key}', this)">
+              \${opt.text}
+            </button>
+          `).join("")}
+        </div>
+      `;
+      wrapper.appendChild(qDiv);
+    });
+  }
+
+  function selectOption(qId, key, btn) {
+    selectedAnswers[qId] = key;
+    const parent = document.getElementById(`opt-group-${qId}`);
+    parent.querySelectorAll(".option-btn").forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+  }
+
+  function submitAnswers() {
+    if (Object.keys(selectedAnswers).length < questions.length) {
+      alert("Még nem válaszoltál minden kérdésre!");
+      return;
+    }
+
+    const team = document.getElementById("team-name").value.trim().toLowerCase();
+    const player = document.getElementById("player-name").value.trim();
+
+    // Mentés LocalStorage-ba (akár egy telefonon, akár több ablakban nézik)
+    let teamData = JSON.parse(localStorage.getItem("csalad_team_" + team) || "[]");
+    teamData.push({
+      player: player,
+      answers: selectedAnswers
+    });
+    localStorage.setItem("csalad_team_" + team, JSON.stringify(teamData));
+
+    calculateResults(teamData);
+  }
+
+  function calculateResults(members) {
+    document.getElementById("step-quiz").classList.add("hidden");
+    document.getElementById("step-result").classList.remove("hidden");
+
+    let statusHtml = `<strong>Csapat tagjai (${members.length} fő):</strong><br>`;
+    members.forEach(m => {
+      statusHtml += `• ${m.player}<br>`;
+    });
+    document.getElementById("team-status").innerHTML = statusHtml;
+
+    // Ha még csak 1 ember töltötte ki
+    if (members.length === 1) {
+      document.getElementById("result-percent").innerText = "⏳ Várakozás";
+      document.getElementById("result-title").innerText = "Még csak te töltötted ki!";
+      document.getElementById("result-desc").innerText = "Add oda a telefont a csapatod következő tagjának, hogy összevessük a válaszaitokat!";
+      return;
+    }
+
+    // PÁROS VAGY TÖBBSZEMÉLYES ÖSSZEHASONLÍTÁS (Átfedés számítás)
+    let totalPairs = 0;
+    let matchPairs = 0;
+
+    for (let q = 1; q <= 7; q++) {
+      for (let i = 0; i < members.length; i++) {
+        for (let j = i + 1; j < members.length; j++) {
+          totalPairs++;
+          if (members[i].answers[q] === members[j].answers[q]) {
+            matchPairs++;
+          }
+        }
+      }
+    }
+
+    let rawScore = Math.round((matchPairs / totalPairs) * 100);
+
+    let finalPercent = "";
+    let title = "";
+    let desc = "";
+
+    if (rawScore >= 70) {
+      finalPercent = "1000% 🔥";
+      title = "ABSZOLÚT CINEMA 🍿🎬";
+      desc = "Ti nemcsak hasonlítotok, de konkrétan egy közös agyféltekén osztoztok! Ugyanaz a kaotikus rezgés, ugyanaz az éjféli hűtő-bámulás. Hivatalosan is összetartoztok, a beavatási kötélre már szinte nincs is szükség!";
+    } else if (rawScore >= 40) {
+      finalPercent = "75% ✨";
+      title = "CSALÁDI ALAPANYAG (Némi vadhajtással) 🤝";
+      desc = "Erős a harmónia! Van egy-két fura kattanásotok, de a lényegben egyetértetek: ha szétcsapni kell a Golfot vagy mélyen hallgatni a sarokban, benne vagytok együtt. Mehet a szertartás!";
+    } else if (rawScore >= 15) {
+      finalPercent = "20% 🧨";
+      title = "UPSZ... ITT LESZNEK VESZEKEDÉSEK 🥊";
+      desc = "Hát, a túlélési esélyeitek 50-50%. Az egyikőtök banánként fonnyadna a kanapén, miközben a másik Golfot forgatna és a mikrón pörögne. De pont a feszültség miatt lesz jó a csapat – a kötél legalább nem enged elszökni!";
+    } else {
+      finalPercent = "0% 🛸";
+      title = "TELJESEN MÁS GALAXIS 👽";
+      desc = "Hogy kerültetek ti egy asztalhoz? Konkrétan más bolygóról jöttetek. De A CSALÁD nem válogat: a beavatás után kénytelenek lesztek megszokni egymás furcsaságait!";
+    }
+
+    document.getElementById("result-percent").innerText = finalPercent;
+    document.getElementById("result-title").innerText = title;
+    document.getElementById("result-desc").innerText = desc;
+    window.scrollTo(0,0);
+  }
+
+  function addAnotherMember() {
+    selectedAnswers = {};
+    document.getElementById("player-name").value = "";
+    document.getElementById("step-result").classList.add("hidden");
+    document.getElementById("step-login").classList.remove("hidden");
+    window.scrollTo(0,0);
+  }
+
+  function resetAll() {
+    const team = document.getElementById("team-name").value.trim().toLowerCase();
+    localStorage.removeItem("csalad_team_" + team);
+    location.reload();
+  }
+</script>
+</body>
+</html>
