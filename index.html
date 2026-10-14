@@ -157,22 +157,8 @@
       box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
     }
 
-    .question-badge {
-      display: inline-block;
-      font-size: 0.72rem;
-      padding: 2px 10px;
-      border-radius: 12px;
-      background: #2d1d12;
-      border: 1px solid var(--mexican-orange);
-      color: var(--mexican-gold);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-
     .question-title {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 700;
       margin-bottom: 14px;
       color: #fff;
@@ -366,7 +352,7 @@
 
       <div class="code-box">
         <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">A te pecsétkódod:</div>
-        <div class="seal-code" id="my-seal-code">---------</div>
+        <div class="seal-code" id="my-seal-code">--------</div>
       </div>
 
       <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
@@ -381,16 +367,16 @@
   <!-- 2. FÜL: CSALÁDI EGYESÍTÉS -->
   <div id="section-merge" class="hidden">
     <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px;">
-      Írjátok be az összes veletek lévő csapattag (2, 3, 4 vagy 5 fő) 9 betűs pecsétkódját, amit a saját telefonjukon kaptak:
+      Írjátok be az összes veletek lévő csapattag (2, 3, 4 vagy 5 fő) 8 betűs pecsétkódját, amit a saját telefonjukon kaptak:
     </p>
 
     <div class="form-group">
       <label>1. Tag kódja:</label>
-      <input type="text" class="seal-input" placeholder="pl. ACBDADCCA">
+      <input type="text" class="seal-input" placeholder="pl. ACBDADCC">
     </div>
     <div class="form-group">
       <label>2. Tag kódja:</label>
-      <input type="text" class="seal-input" placeholder="pl. ACBDAACDD">
+      <input type="text" class="seal-input" placeholder="pl. ACBDAACD">
     </div>
     <div class="form-group">
       <label>3. Tag kódja (opcionális):</label>
@@ -419,11 +405,10 @@
 </div>
 
 <script>
-  // KÉRDÉSEK ÉS OPCIÓK (A KÉPES KÉRDÉSEKNÉL NINCS MAGYARÁZÓ SZÖVEG)
+  // PONTOSAN 8 KÉRDÉS – CÍMKÉK ÉS FÖLÖSLEGES FELIRATOK NÉLKÜL
   const questions = [
     {
       id: 1,
-      badge: "KÉPES / AUTÓ",
       isGrid: true,
       title: "1. Ha kapnál egy szupersportautót egyetlen őrült körre, melyik kulcsáért nyúlnál?",
       options: [
@@ -435,7 +420,6 @@
     },
     {
       id: 2,
-      badge: "SZÖVEGES / REINKARNÁCIÓ",
       isGrid: false,
       title: "2. Melyik teljesen felesleges hétköznapi tárgyként reinkarnálódnál a legszívesebben?",
       options: [
@@ -447,7 +431,6 @@
     },
     {
       id: 3,
-      badge: "SZÖVEGES / DINÓ",
       isGrid: false,
       title: "3. Milyen dinoszaurusz lennél legszívesebben egy átlagos kedd délután?",
       options: [
@@ -459,7 +442,6 @@
     },
     {
       id: 4,
-      badge: "SZÖVEGES / HANGHATÁS",
       isGrid: false,
       title: "4. Ha kötelezően be kellene építened egy random hanghatást az életedbe, mit választanál?",
       options: [
@@ -471,7 +453,6 @@
     },
     {
       id: 5,
-      badge: "KÉPES / MACSKA",
       isGrid: true,
       title: "5. Melyik macska definiálja a mostani lelkiállapotodat?",
       options: [
@@ -484,7 +465,6 @@
     },
     {
       id: 6,
-      badge: "SZÖVEGES / ITAL",
       isGrid: false,
       title: "6. Melyik pia vagy egy random szombat este?",
       options: [
@@ -496,7 +476,6 @@
     },
     {
       id: 7,
-      badge: "SZÖVEGES / BŰNÜGY",
       isGrid: false,
       title: "7. Ha börtönbe kerülnél valami abszurd baromság miatt, mi lenne a vádiratban?",
       options: [
@@ -508,7 +487,6 @@
     },
     {
       id: 8,
-      badge: "SZÖVEGES / TILTÁS",
       isGrid: false,
       title: "8. Mivel lehet a leggyorsabban felidegesíteni téged?",
       options: [
@@ -516,18 +494,6 @@
         { key: "B", text: "Aki hangosan rágja a csipszet vagy szürcsöli a forró teát." },
         { key: "C", text: "Aki megkérdezi hétfőn, hogy 'Na, mi volt a hétvégén?'" },
         { key: "D", text: "Aki küld egy 'Beszélnünk kell...' üzenetet, majd 4 órára eltűnik." }
-      ]
-    },
-    {
-      id: 9,
-      badge: "SZÖVEGES / KÁOSZ",
-      isGrid: false,
-      title: "9. Egy random 100 fős tömegrendezvényen hol találnak meg 20 perc után?",
-      options: [
-        { key: "A", text: "A konyhában, mély beszélgetésben a házigazda kutyájával." },
-        { key: "B", text: "A legmélyebb fotelben, próbálok észrevétlenül aludni." },
-        { key: "C", text: "A dohányzó sarokban, idegeneknek magyarázom a világösszeesküvést." },
-        { key: "D", text: "Én vezetem a spontán vonatozást a tánctér közepén." }
       ]
     }
   ];
@@ -592,8 +558,7 @@
 
       const containerClass = q.isGrid ? "options-grid" : "options-list";
 
-      qDiv.innerHTML = '<span class="question-badge">' + q.badge + '</span>' +
-                       '<div class="question-title">' + q.title + '</div>' +
+      qDiv.innerHTML = '<div class="question-title">' + q.title + '</div>' +
                        '<div class="' + containerClass + '" id="opt-group-' + q.id + '">' +
                        optHtml +
                        '</div>';
@@ -617,8 +582,9 @@
       return;
     }
 
+    // 8 betűs pecsétkód előállítása
     let sealCode = "";
-    for (let i = 1; i <= 9; i++) {
+    for (let i = 1; i <= 8; i++) {
       sealCode += selectedAnswers[i];
     }
 
@@ -640,20 +606,20 @@
 
     inputs.forEach(input => {
       let val = input.value.trim().toUpperCase();
-      if (val.length === 9) {
+      if (val.length === 8) {
         codes.push(val);
       }
     });
 
     if (codes.length < 2) {
-      alert("Legalább 2 játékos érvényes 9 betűs pecsétkódját add meg az összevetéshez!");
+      alert("Legalább 2 játékos érvényes 8 betűs pecsétkódját add meg az összevetéshez!");
       return;
     }
 
     let totalPairs = 0;
     let matchPairs = 0;
 
-    for (let q = 0; q < 9; q++) {
+    for (let q = 0; q < 8; q++) {
       for (let i = 0; i < codes.length; i++) {
         for (let j = i + 1; j < codes.length; j++) {
           totalPairs++;
@@ -673,15 +639,15 @@
     if (matchRatio >= 65) {
       percentText = "1000% 🔥";
       title = "ABSZOLÚT CINEMA 🍿🎬";
-      desc = "Ti nemcsak hasonlítotok, de konkrétan egy közös agyféltekén osztoztok! Ugyanaz a kaotikus rezgés, ugyanaz az éjféli hűtő-bámulás. Hivatalosan is összetartoztok, a beavatási kötélre már szinte nincs is szükség!";
+      desc = "Ti nemcsak hasonlítotok, de konkrétan egy közös agyféltekén osztoztok! Ugyanaz a kaotikus rezgés, ugyanaz a szombat esti túlélési ösztön. Hivatalosan is összetartoztok, a beavatási kötélre már szinte nincs is szükség!";
     } else if (matchRatio >= 38) {
       percentText = "75% ✨";
       title = "CSALÁDI ALAPANYAG 🤝";
-      desc = "Erős a harmónia! Van egy-két fura kattanásotok, de a lényegben egyetértetek: ha szétcsapni kell a pályát vagy mélyen hallgatni a sarokban, benne vagytok együtt. Mehet a szertartás!";
+      desc = "Erős a harmónia! Van egy-két fura kattanásotok, de a lényegben egyetértetek: ha szétcsapni kell a pályát vagy békésen aludni az IKEA-ban, benne vagytok együtt. Mehet a szertartás!";
     } else if (matchRatio >= 18) {
       percentText = "20% 🧨";
       title = "UPSZ... ITT LESZNEK VESZEKEDÉSEK 🥊";
-      desc = "Hát, a túlélési esélyeitek 50-50%. Az egyikőtök banánként fonnyadna a kanapén, miközben a másik zöld Lambóval száguldana és a mikrón pörögne. De pont a feszültség miatt lesz jó a csapat – a kötél legalább nem enged elszökni!";
+      desc = "Hát, a túlélési esélyeitek 50-50%. Az egyikőtök banánmatricaként küzdene az életben maradásért, miközben a másik zöld Lambóval száguldana és a mikrón pörögne. De pont a feszültség miatt lesz jó a csapat – a kötél legalább nem enged elszökni!";
     } else {
       percentText = "0% 🛸";
       title = "TELJESEN MÁS GALAXIS 👽";
