@@ -39,17 +39,16 @@
 
     .container {
       width: 100%;
-      max-width: 540px;
+      max-width: 550px;
       background: var(--card-bg);
       border: 3px double var(--mexican-gold);
       outline: 4px solid var(--wood-border);
       border-radius: 14px;
-      padding: 24px 18px;
+      padding: 24px 16px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.9), inset 0 0 30px rgba(242, 116, 5, 0.15);
       position: relative;
     }
 
-    /* Mexikói díszcsík fejléc és lábléc */
     .mexican-border-top {
       text-align: center;
       font-size: 1.2rem;
@@ -91,7 +90,6 @@
       font-style: italic;
     }
 
-    /* Tab váltó gombok (Kitöltés vs Eredmény egyesítés) */
     .tab-bar {
       display: flex;
       gap: 8px;
@@ -149,7 +147,6 @@
       box-shadow: 0 0 12px rgba(242, 170, 31, 0.3);
     }
 
-    /* Kérdés kártyák */
     .question-block {
       margin-top: 22px;
       padding: 18px 14px;
@@ -175,31 +172,47 @@
     }
 
     .question-title {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 700;
       margin-bottom: 14px;
       color: #fff;
     }
 
-    .options {
+    .options-list {
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
     .option-btn {
-      padding: 14px 12px;
+      padding: 8px;
       background: #1f1712;
-      border: 1px solid #382516;
+      border: 2px solid #382516;
       border-radius: 8px;
       color: var(--text);
       cursor: pointer;
       text-align: left;
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       transition: all 0.2s ease;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+    }
+
+    .option-btn.text-btn {
+      padding: 12px 14px;
+      align-items: flex-start;
+    }
+
+    .option-btn.span-full {
+      grid-column: span 2;
     }
 
     .option-btn:hover {
@@ -208,11 +221,22 @@
     }
 
     .option-btn.selected {
-      background: linear-gradient(135deg, #d96904 0%, #f2aa1f 100%);
-      color: #120b05;
-      font-weight: 700;
-      border-color: #ffe082;
-      box-shadow: 0 0 12px rgba(242, 116, 5, 0.5);
+      border-color: var(--mexican-gold);
+      background: #3a2213;
+      box-shadow: 0 0 14px rgba(242, 170, 31, 0.7);
+      outline: 2px solid var(--mexican-gold);
+    }
+
+    .option-img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 6px;
+      display: block;
+    }
+
+    .option-btn.span-full .option-img {
+      height: 180px;
     }
 
     .btn-action {
@@ -242,16 +266,8 @@
       transform: translateY(-1px);
     }
 
-    .btn-secondary {
-      background: #241a13;
-      color: var(--text);
-      border: 1px solid var(--mexican-orange);
-      margin-top: 12px;
-    }
-
     .hidden { display: none !important; }
 
-    /* Eredmény nézet (Pergamen szalag stílus) */
     .result-screen {
       text-align: center;
       padding: 10px 0;
@@ -266,7 +282,6 @@
       padding: 18px 12px;
       margin: 18px 0;
       box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-      position: relative;
     }
 
     .percent-box {
@@ -323,7 +338,6 @@
     <div class="desc">„Egy szertartás után bekerültök a családba, és a szent kötéllel egymáshoz láncolunk titeket.”</div>
   </header>
 
-  <!-- Fül választó -->
   <div class="tab-bar">
     <button class="tab-btn active" id="tab-fill-btn" onclick="switchTab('fill')">1. Saját Kvíz Kitöltése</button>
     <button class="tab-btn" id="tab-merge-btn" onclick="switchTab('merge')">2. Családi Egyesítés (2-5 fő)</button>
@@ -344,7 +358,6 @@
       <button class="btn-action btn-primary" onclick="submitAnswers()">Válaszok Lepecsételése 🕯️</button>
     </div>
 
-    <!-- Saját kód megmutatása a kitöltés után -->
     <div id="step-personal-result" class="hidden result-screen">
       <h3 style="color: var(--mexican-gold); font-family: 'Cinzel', serif;">Sikeresen válaszoltál!</h3>
       <p style="font-size: 0.9rem; margin-top: 8px; color: var(--text-muted);">
@@ -353,31 +366,31 @@
 
       <div class="code-box">
         <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">A te pecsétkódod:</div>
-        <div class="seal-code" id="my-seal-code">-------</div>
+        <div class="seal-code" id="my-seal-code">---------</div>
       </div>
 
       <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
         👉 <strong>Mit csináljatok most?</strong><br>
-        Váltsatok a fenti <strong>„2. Családi Egyesítés”</strong> fülre (ezen a telefonon vagy az egyikőtöknél), és írjátok be egymás kódját az összhang kiderítéséhez!
+        Váltsatok a fenti <strong>„2. Családi Egyesítés”</strong> fülre (ezen a telefonon vagy az egyikőtöknél), és írjátok be egymás kódját a közös összhang kiderítéséhez!
       </p>
 
       <button class="btn-action btn-primary" onclick="switchTab('merge')">Ugrás a Családi Egyesítéshez ➔</button>
     </div>
   </div>
 
-  <!-- 2. FÜL: CSALÁDI EGYESÍTÉS (TÖBB KÓD ÖSSZEVETÉSE) -->
+  <!-- 2. FÜL: CSALÁDI EGYESÍTÉS -->
   <div id="section-merge" class="hidden">
     <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px;">
-      Írjátok be az összes veletek lévő csapattag (2, 3, 4 vagy 5 fő) 7 betűs pecsétkódját, amit a saját telefonjukon kaptak:
+      Írjátok be az összes veletek lévő csapattag (2, 3, 4 vagy 5 fő) 9 betűs pecsétkódját, amit a saját telefonjukon kaptak:
     </p>
 
     <div class="form-group">
       <label>1. Tag kódja:</label>
-      <input type="text" class="seal-input" placeholder="pl. ACBDADC">
+      <input type="text" class="seal-input" placeholder="pl. ACBDADCCA">
     </div>
     <div class="form-group">
       <label>2. Tag kódja:</label>
-      <input type="text" class="seal-input" placeholder="pl. ACBDAAC">
+      <input type="text" class="seal-input" placeholder="pl. ACBDAACDD">
     </div>
     <div class="form-group">
       <label>3. Tag kódja (opcionális):</label>
@@ -394,7 +407,6 @@
 
     <button class="btn-action btn-primary" onclick="calculateGroupMatch()">Közös Lélek és Rezgés Elemzése 👁️</button>
 
-    <!-- Csoportos eredmény -->
     <div id="group-result" class="hidden result-screen">
       <div class="parchment-banner">
         <div class="verdict-title" id="res-title">---</div>
@@ -407,67 +419,98 @@
 </div>
 
 <script>
-  // KÉRDÉSEK ÉS VÁLASZOK LISTÁJA
+  // KÉRDÉSEK ÉS OPCIÓK (A KÉPES KÉRDÉSEKNÉL NINCS MAGYARÁZÓ SZÖVEG)
   const questions = [
     {
       id: 1,
-      badge: "KÉPES / FANTASY",
-      title: "1. Milyen dinoszaurusz lennél legszívesebben egy átlagos kedd délután?",
+      badge: "KÉPES / AUTÓ",
+      isGrid: true,
+      title: "1. Ha kapnál egy szupersportautót egyetlen őrült körre, melyik kulcsáért nyúlnál?",
       options: [
-        { key: "A", text: "🦖 T-Rex: Apró kezekkel kapálózom, és ráüvöltök mindenkire ok nélkül." },
+        { key: "A", img: "auto1.jpg" },
+        { key: "B", img: "auto2.jpg" },
+        { key: "C", img: "auto3.jpg" },
+        { key: "D", img: "auto4.jpg" }
+      ]
+    },
+    {
+      id: 2,
+      badge: "SZÖVEGES / REINKARNÁCIÓ",
+      isGrid: false,
+      title: "2. Melyik teljesen felesleges hétköznapi tárgyként reinkarnálódnál a legszívesebben?",
+      options: [
+        { key: "A", text: "🧦 A kanapén felejtett fél pár zokni: Senki sem tudja, hol a párom, de kényelmesen elvagyok a párnák közé szorulva." },
+        { key: "B", text: "🏷️ A lejárati időt mutató matrica a banánon: Nulla funkció, de mindenki idegesen próbál lekaparni." },
+        { key: "C", text: "🔌 A fiók mélyén heverő, ismeretlen eredetű fekete kábel: Senki se meri kidobni, hátha valami életmentő dologhoz tartozik." },
+        { key: "D", text: "🛒 A bevásárlókocsi kereke, ami csak forog, de nem ér le a földre: Puszta káosz és passzív agresszió az egész létezésem." }
+      ]
+    },
+    {
+      id: 3,
+      badge: "SZÖVEGES / DINÓ",
+      isGrid: false,
+      title: "3. Milyen dinoszaurusz lennél legszívesebben egy átlagos kedd délután?",
+      options: [
+        { key: "A", text: "🦖 T-Rex: Apró kezekkel idegesen kapálózom, és ráüvöltök mindenkire ok nélkül." },
         { key: "B", text: "🦕 Stegosaurus: Békés növényevő, de dühömben mindent leverek a polcról." },
         { key: "C", text: "🦎 Velociraptor: Susmusolok a sarokban és kaotikus terveket szövök." },
         { key: "D", text: "🦅 Pterodactylus: Véletlenül berepültem a Lidlbe és nincs meg a kijárat." }
       ]
     },
     {
-      id: 2,
-      badge: "KÉPES / GYÜMÖLCS",
-      title: "2. Melyik gyümölcs rezonál leginkább a jelenlegi lélekállapotoddal?",
-      options: [
-        { key: "A", text: "🍋 Citrom: Kívül vidám és sárga, de ha túl közel jössz, összerándulsz tőlem." },
-        { key: "B", text: "🍌 Barna banán: Fáradtan fekszem a kosár alján, banánkenyérnek még jó." },
-        { key: "C", text: "🍍 Ananász: Szúrós, agresszív külső, belül meglepően édes." },
-        { key: "D", text: "🍉 Görögdinnye: Nehéz, gurul, és ha felrobbansz, minden ragadni fog." }
-      ]
-    },
-    {
-      id: 3,
-      badge: "SZÖVEGES / ÉJSZAKA",
-      title: "3. Éjjel 2:43-kor nyitva áll a hűtőajtó előtted. Mit csinálsz a hűs fényben?",
-      options: [
-        { key: "A", text: "Bamba tekintettel nézem a tejfölt, majd kézzel bekapok egy szelet parizert." },
-        { key: "B", text: "Mély világmegváltó belső monológot folytatok a hideg pörkölttel." },
-        { key: "C", text: "Kiveszem a vajat, megszagolom, visszateszem, mintha itt sem lettem volna." },
-        { key: "D", text: "Üveges szemmel várom, hogy valami a semmiből átváltozzon pizzává." }
-      ]
-    },
-    {
       id: 4,
-      badge: "KÉPES / MACSKA",
-      title: "4. Melyik macska definiálja a mostani pillanatodat?",
+      badge: "SZÖVEGES / HANGHATÁS",
+      isGrid: false,
+      title: "4. Ha kötelezően be kellene építened egy random hanghatást az életedbe, mit választanál?",
       options: [
-        { key: "A", text: "😾 Morcos macska: Bárki hozzám ér vagy megszólít, annak annyi." },
-        { key: "B", text: "🙀 Pánikoló macska: Tág pupillák, gőzöm sincs mi van, de félek." },
-        { key: "C", text: "🛋️ Lefolyó tészta macska: Folyékony halmazállapotú vagyok a kanapén." },
-        { key: "D", text: "🌪️ Függönyön pörgő macska: Éjjel 3 van, pörög az agyam, lángol a világ!" }
+        { key: "A", text: "😴 A Windows XP leállási hangot minden egyes alkalommal, amikor elalszol." },
+        { key: "B", text: "🎬 A sitcomokból ismert konzerv nevetést és tapsvihart, valahányszor elbotlasz vagy levered a kislábujjad." },
+        { key: "C", text: "🚨 A metróajtó záródását jelző sípolást közvetlenül azelőtt, hogy megszólalnál." },
+        { key: "D", text: "🎵 A drámai „DUN-DUN-DUNNN” szappanopera-effektet, valahányszor kinyitod a hűtőt." }
       ]
     },
     {
       id: 5,
-      badge: "KÉPES / JÁRMŰ",
-      title: "5. Ha kapnál egy autót egyetlen őrült körre, melyik kulcsáért nyúlnál?",
+      badge: "KÉPES / MACSKA",
+      isGrid: true,
+      title: "5. Melyik macska definiálja a mostani lelkiállapotodat?",
       options: [
-        { key: "A", text: "🚗 Sötétített 1.9 TDI Golf: Füstöljön, kormoljon, lakossági techno maximálison." },
-        { key: "B", text: "🚙 Piros Trabant 601: Semmi fék, semmi biztonság, tiszta benzingőz." },
-        { key: "C", text: "🚛 Narancssárga kukásautó: Felállok hátra a fellépőre és integetek a népnek." },
-        { key: "D", text: "🛴 Roller beragadt dudával: Bizonytalan, instabil, de megállíthatatlan káosz." }
+        { key: "A", img: "cica1.jpg" },
+        { key: "B", img: "cica2.jpg" },
+        { key: "C", img: "cica3.jpg" },
+        { key: "D", img: "cica4.jpg" },
+        { key: "E", img: "cica5.jpg" }
       ]
     },
     {
       id: 6,
+      badge: "SZÖVEGES / ITAL",
+      isGrid: false,
+      title: "6. Melyik pia vagy egy random szombat este?",
+      options: [
+        { key: "A", text: "🍻 A dobozos Kőbányai: Nulla duma, semmi felvágás. Lehet, hogy kicsit meleg és be van horpadva a sarka, de megbízhatóan ott vagy a padon, ha eljön a hónap végi túlélési fázis." },
+        { key: "B", text: "🦌 A hideg Jäger hajnali háromkor: Mindenki pontosan tudja a szobában, hogy ebből fekete lyuk lesz, idegen lakásban ébredés és hétfőig tartó bűntudat – de egymás szemébe néztek, és lehúzzátok." },
+        { key: "C", text: "🥃 A tiszta vodka: Nem pancsolsz, nem játszol az ízekre. Tisztán a pusztításért jöttél, és 20 perc múlva már a dohányzóban idegeneknek magyarázod a legféltettebb titkaidat." },
+        { key: "D", text: "🍋 A Tequila: Csak a cirkusz kedvéért csinálod: kézfejnyalás, fintorgás, fulladozás a citromtól, de két másodperc múlva úgy teszel, mintha semmi sem történt volna, és vered az asztalt a következő körért." }
+      ]
+    },
+    {
+      id: 7,
+      badge: "SZÖVEGES / BŰNÜGY",
+      isGrid: false,
+      title: "7. Ha börtönbe kerülnél valami abszurd baromság miatt, mi lenne a vádiratban?",
+      options: [
+        { key: "A", text: "🛏️ Birtokháborítás és alvási engedetlenség: A reggeli nyitáskor a takarítók találtak meg az IKEA egyik bemutató franciaágyában, ahogy a kiállított paplan alatt alszol köntösben, és felháborodva kérted a szobaszervizt." },
+        { key: "B", text: "🚋 Tömegközlekedési zűrzavar okozása: A 4-es 6-os villamoson eljátszottad, hogy te vagy a járat kalauza, de bérlet vagy jegy helyett kizárólag vicceket fogadtál el menetdíjként." },
+        { key: "C", text: "🚔 Hatósági engedély nélküli közlekedés: Részegen elloptad az éjszakai utcaseprő autót, és megpróbáltál vele driftelni a körforgalomban." },
+        { key: "D", text: "🚪 Sorozatos szabotázs a boltban: Az összes „Húzni” feliratú ajtóra észrevétlenül ráragasztottad a „Tolni” matricát, majd leültél egy padra popcornnal nézni a küzdelmet." }
+      ]
+    },
+    {
+      id: 8,
       badge: "SZÖVEGES / TILTÁS",
-      title: "6. Mivel lehet a leggyorsabban felidegesíteni téged?",
+      isGrid: false,
+      title: "8. Mivel lehet a leggyorsabban felidegesíteni téged?",
       options: [
         { key: "A", text: "Aki a mikróban hagy 1 másodpercet és ott villog a kijelző." },
         { key: "B", text: "Aki hangosan rágja a csipszet vagy szürcsöli a forró teát." },
@@ -476,9 +519,10 @@
       ]
     },
     {
-      id: 7,
+      id: 9,
       badge: "SZÖVEGES / KÁOSZ",
-      title: "7. Egy random 100 fős tömegrendezvényen hol találnak meg 20 perc után?",
+      isGrid: false,
+      title: "9. Egy random 100 fős tömegrendezvényen hol találnak meg 20 perc után?",
       options: [
         { key: "A", text: "A konyhában, mély beszélgetésben a házigazda kutyájával." },
         { key: "B", text: "A legmélyebb fotelben, próbálok észrevétlenül aludni." },
@@ -516,7 +560,6 @@
     window.scrollTo(0,0);
   }
 
-  // BIZTOS STRING ÖSSZEFŰZÉS – kiküszöböli a ${opt.text} hibát
   function renderQuestions() {
     const wrapper = document.getElementById("questions-wrapper");
     wrapper.innerHTML = "";
@@ -529,14 +572,29 @@
       let optHtml = "";
       for (let j = 0; j < q.options.length; j++) {
         const opt = q.options[j];
-        optHtml += '<button type="button" class="option-btn" onclick="selectOption(' + q.id + ', \'' + opt.key + '\', this)">' +
-                   opt.text +
+        
+        let content = "";
+        let extraClass = "";
+
+        if (opt.img) {
+          content = '<img src="' + opt.img + '" class="option-img" alt="kép">';
+        } else {
+          content = '<span>' + opt.text + '</span>';
+          extraClass = " text-btn";
+        }
+
+        let spanClass = (q.isGrid && q.options.length % 2 !== 0 && j === q.options.length - 1) ? " span-full" : "";
+
+        optHtml += '<button type="button" class="option-btn' + extraClass + spanClass + '" onclick="selectOption(' + q.id + ', \'' + opt.key + '\', this)">' +
+                   content +
                    '</button>';
       }
 
+      const containerClass = q.isGrid ? "options-grid" : "options-list";
+
       qDiv.innerHTML = '<span class="question-badge">' + q.badge + '</span>' +
                        '<div class="question-title">' + q.title + '</div>' +
-                       '<div class="options" id="opt-group-' + q.id + '">' +
+                       '<div class="' + containerClass + '" id="opt-group-' + q.id + '">' +
                        optHtml +
                        '</div>';
       wrapper.appendChild(qDiv);
@@ -559,9 +617,8 @@
       return;
     }
 
-    // 7 betűs pecsétkód előállítása (pl. ACBDADC)
     let sealCode = "";
-    for (let i = 1; i <= 7; i++) {
+    for (let i = 1; i <= 9; i++) {
       sealCode += selectedAnswers[i];
     }
 
@@ -569,7 +626,6 @@
     document.getElementById("step-quiz").classList.add("hidden");
     document.getElementById("step-personal-result").classList.remove("hidden");
 
-    // Az első mezőbe automatikusan be is másoljuk
     const inputs = document.querySelectorAll(".seal-input");
     if (inputs.length > 0 && !inputs[0].value) {
       inputs[0].value = sealCode;
@@ -578,27 +634,26 @@
     window.scrollTo(0,0);
   }
 
-  // TÖBB EMBER KÓDJÁNAK ÖSSZEHASONLÍTÁSA
   function calculateGroupMatch() {
     const inputs = document.querySelectorAll(".seal-input");
     let codes = [];
 
     inputs.forEach(input => {
       let val = input.value.trim().toUpperCase();
-      if (val.length === 7) {
+      if (val.length === 9) {
         codes.push(val);
       }
     });
 
     if (codes.length < 2) {
-      alert("Legalább 2 játékos érvényes 7 betűs pecsétkódját add meg az összevetéshez!");
+      alert("Legalább 2 játékos érvényes 9 betűs pecsétkódját add meg az összevetéshez!");
       return;
     }
 
     let totalPairs = 0;
     let matchPairs = 0;
 
-    for (let q = 0; q < 7; q++) {
+    for (let q = 0; q < 9; q++) {
       for (let i = 0; i < codes.length; i++) {
         for (let j = i + 1; j < codes.length; j++) {
           totalPairs++;
@@ -622,11 +677,11 @@
     } else if (matchRatio >= 38) {
       percentText = "75% ✨";
       title = "CSALÁDI ALAPANYAG 🤝";
-      desc = "Erős a harmónia! Van egy-két fura kattanásotok, de a lényegben egyetértetek: ha szétcsapni kell a Golfot vagy mélyen hallgatni a sarokban, benne vagytok együtt. Mehet a szertartás!";
+      desc = "Erős a harmónia! Van egy-két fura kattanásotok, de a lényegben egyetértetek: ha szétcsapni kell a pályát vagy mélyen hallgatni a sarokban, benne vagytok együtt. Mehet a szertartás!";
     } else if (matchRatio >= 18) {
       percentText = "20% 🧨";
       title = "UPSZ... ITT LESZNEK VESZEKEDÉSEK 🥊";
-      desc = "Hát, a túlélési esélyeitek 50-50%. Az egyikőtök banánként fonnyadna a kanapén, miközben a másik Golfot forgatna és a mikrón pörögne. De pont a feszültség miatt lesz jó a csapat – a kötél legalább nem enged elszökni!";
+      desc = "Hát, a túlélési esélyeitek 50-50%. Az egyikőtök banánként fonnyadna a kanapén, miközben a másik zöld Lambóval száguldana és a mikrón pörögne. De pont a feszültség miatt lesz jó a csapat – a kötél legalább nem enged elszökni!";
     } else {
       percentText = "0% 🛸";
       title = "TELJESEN MÁS GALAXIS 👽";
