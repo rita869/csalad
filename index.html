@@ -3,61 +3,121 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A CSALÁD - Rezgéskompatibilitási Teszt</title>
+  <title>A CSALÁD - Mexikói Beavatási Szertartás</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Pirata+One&family=MedievalSharp&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #12100e;
-      --card-bg: #1c1815;
-      --border: #4a3828;
-      --accent: #d97724;
-      --accent-glow: #ff9800;
+      --bg: #0d0a08;
+      --parchment: #eedbb2;
+      --parchment-dark: #d8be8d;
+      --wood-dark: #1a130e;
+      --wood-border: #442d1c;
+      --mexican-orange: #f27405;
+      --mexican-gold: #f2aa1f;
+      --marigold: #f8961e;
+      --blood-red: #8b0000;
+      --card-bg: rgba(22, 16, 12, 0.94);
       --text: #ecd9b9;
-      --text-muted: #a3907c;
-      --cinema: #e63946;
-      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      --text-muted: #bfa888;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     body {
       background-color: var(--bg);
+      background-image: radial-gradient(circle at 50% 20%, #291b12 0%, #0d0a08 85%);
       color: var(--text);
-      font-family: var(--font-family);
+      font-family: 'Montserrat', sans-serif;
       line-height: 1.5;
-      padding: 16px;
+      padding: 16px 10px;
       display: flex;
       justify-content: center;
+      min-height: 100vh;
     }
 
     .container {
       width: 100%;
       max-width: 540px;
       background: var(--card-bg);
-      border: 2px solid var(--border);
-      border-radius: 12px;
+      border: 3px double var(--mexican-gold);
+      outline: 4px solid var(--wood-border);
+      border-radius: 14px;
       padding: 24px 18px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.9), inset 0 0 30px rgba(242, 116, 5, 0.15);
+      position: relative;
+    }
+
+    /* Mexikói díszcsík fejléc és lábléc */
+    .mexican-border-top {
+      text-align: center;
+      font-size: 1.2rem;
+      letter-spacing: 6px;
+      color: var(--marigold);
+      margin-bottom: 8px;
     }
 
     header {
       text-align: center;
-      margin-bottom: 24px;
-      border-bottom: 1px dashed var(--border);
+      margin-bottom: 22px;
+      border-bottom: 2px solid var(--wood-border);
       padding-bottom: 16px;
     }
 
     h1 {
-      font-size: 1.8rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent);
-      text-shadow: 0 0 10px rgba(217, 119, 36, 0.4);
+      font-family: 'Pirata One', 'MedievalSharp', cursive;
+      font-size: 2.8rem;
+      letter-spacing: 3px;
+      color: var(--mexican-gold);
+      text-shadow: 2px 2px 0px #000, 0 0 16px rgba(242, 170, 31, 0.6);
+      line-height: 1.1;
+      margin-bottom: 4px;
     }
 
     .subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--mexican-orange);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .desc {
       font-size: 0.85rem;
       color: var(--text-muted);
-      margin-top: 4px;
+      margin-top: 8px;
       font-style: italic;
+    }
+
+    /* Tab váltó gombok (Kitöltés vs Eredmény egyesítés) */
+    .tab-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px 6px;
+      background: #1e1610;
+      color: var(--text-muted);
+      border: 1px solid var(--wood-border);
+      border-radius: 8px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      font-weight: bold;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: var(--mexican-orange);
+      color: #000;
+      border-color: var(--mexican-gold);
+      box-shadow: 0 0 10px rgba(242, 116, 5, 0.4);
     }
 
     .form-group {
@@ -67,50 +127,58 @@
     label {
       display: block;
       margin-bottom: 6px;
-      font-weight: bold;
+      font-family: 'Cinzel', serif;
+      font-weight: 800;
       font-size: 0.9rem;
-      color: var(--accent);
+      color: var(--mexican-gold);
     }
 
     input[type="text"] {
       width: 100%;
       padding: 12px;
       border-radius: 8px;
-      border: 1px solid var(--border);
-      background: #0d0b0a;
+      border: 1px solid var(--mexican-orange);
+      background: #110c09;
       color: #fff;
-      font-size: 1rem;
+      font-size: 1.05rem;
+      font-family: 'Montserrat', sans-serif;
     }
 
     input[type="text"]:focus {
-      outline: 2px solid var(--accent);
+      outline: 2px solid var(--mexican-gold);
+      box-shadow: 0 0 12px rgba(242, 170, 31, 0.3);
     }
 
+    /* Kérdés kártyák */
     .question-block {
-      margin-top: 24px;
-      padding: 16px;
-      background: rgba(0,0,0,0.3);
-      border-left: 3px solid var(--accent);
-      border-radius: 0 8px 8px 0;
-    }
-
-    .question-title {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin-bottom: 14px;
-      color: #fff;
+      margin-top: 22px;
+      padding: 18px 14px;
+      background: rgba(14, 10, 8, 0.8);
+      border: 1px solid var(--wood-border);
+      border-left: 4px solid var(--mexican-orange);
+      border-radius: 8px;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
     }
 
     .question-badge {
       display: inline-block;
-      font-size: 0.7rem;
-      padding: 2px 8px;
-      border-radius: 10px;
-      background: var(--border);
-      color: var(--accent-glow);
-      margin-bottom: 6px;
+      font-size: 0.72rem;
+      padding: 2px 10px;
+      border-radius: 12px;
+      background: #2d1d12;
+      border: 1px solid var(--mexican-orange);
+      color: var(--mexican-gold);
+      margin-bottom: 8px;
       text-transform: uppercase;
-      font-weight: bold;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .question-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: #fff;
     }
 
     .options {
@@ -120,152 +188,233 @@
     }
 
     .option-btn {
-      padding: 12px 14px;
-      background: #25201c;
-      border: 1px solid var(--border);
+      padding: 14px 12px;
+      background: #1f1712;
+      border: 1px solid #382516;
       border-radius: 8px;
       color: var(--text);
       cursor: pointer;
       text-align: left;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .option-btn:hover {
-      border-color: var(--accent);
-      background: #2e2621;
+      border-color: var(--mexican-orange);
+      background: #2b1f17;
     }
 
     .option-btn.selected {
-      background: var(--accent);
-      color: #000;
-      font-weight: bold;
-      border-color: var(--accent-glow);
+      background: linear-gradient(135deg, #d96904 0%, #f2aa1f 100%);
+      color: #120b05;
+      font-weight: 700;
+      border-color: #ffe082;
+      box-shadow: 0 0 12px rgba(242, 116, 5, 0.5);
     }
 
     .btn-action {
       display: block;
       width: 100%;
-      padding: 14px;
-      margin-top: 24px;
+      padding: 16px;
+      margin-top: 26px;
       border-radius: 8px;
-      font-weight: bold;
-      font-size: 1rem;
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: 1.05rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       cursor: pointer;
       border: none;
-      transition: background 0.2s;
+      transition: all 0.2s;
     }
 
     .btn-primary {
-      background: var(--accent);
-      color: #000;
+      background: linear-gradient(135deg, var(--mexican-orange) 0%, var(--mexican-gold) 100%);
+      color: #140b04;
+      box-shadow: 0 4px 15px rgba(242, 116, 5, 0.4);
     }
 
     .btn-primary:hover {
-      background: var(--accent-glow);
+      filter: brightness(1.15);
+      transform: translateY(-1px);
     }
 
     .btn-secondary {
-      background: #332b24;
+      background: #241a13;
       color: var(--text);
-      border: 1px solid var(--border);
-      margin-top: 10px;
+      border: 1px solid var(--mexican-orange);
+      margin-top: 12px;
     }
 
     .hidden { display: none !important; }
 
-    /* Eredmény nézet */
+    /* Eredmény nézet (Pergamen szalag stílus) */
     .result-screen {
       text-align: center;
-      padding: 20px 0;
+      padding: 10px 0;
+    }
+
+    .parchment-banner {
+      background: var(--parchment);
+      background-image: linear-gradient(to bottom, #f7eccb 0%, #d8be8d 100%);
+      color: #2b1708;
+      border: 2px solid #6b4423;
+      border-radius: 8px;
+      padding: 18px 12px;
+      margin: 18px 0;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+      position: relative;
     }
 
     .percent-box {
-      font-size: 3rem;
+      font-family: 'Pirata One', 'MedievalSharp', cursive;
+      font-size: 3.8rem;
+      line-height: 1;
       font-weight: 900;
-      color: var(--accent-glow);
-      text-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
-      margin: 10px 0;
+      color: var(--blood-red);
+      text-shadow: 1px 1px 0px rgba(255,255,255,0.4);
+      margin: 8px 0;
     }
 
     .verdict-title {
-      font-size: 1.35rem;
-      font-weight: 800;
-      margin-bottom: 16px;
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      font-weight: 900;
+      margin-bottom: 12px;
       text-transform: uppercase;
+      color: #3d1e06;
     }
 
     .verdict-desc {
-      font-size: 0.95rem;
-      color: var(--text);
-      background: #221d19;
-      padding: 16px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      margin-bottom: 20px;
+      font-size: 0.92rem;
+      color: #261507;
+      font-weight: 600;
+      line-height: 1.45;
     }
 
-    .players-list {
-      text-align: left;
-      font-size: 0.85rem;
-      background: #151210;
-      padding: 12px;
+    .code-box {
+      background: #110c09;
+      border: 2px dashed var(--mexican-gold);
+      padding: 16px;
       border-radius: 8px;
-      margin-bottom: 16px;
-      border: 1px solid var(--border);
+      margin: 18px 0;
+    }
+
+    .seal-code {
+      font-family: monospace;
+      font-size: 1.8rem;
+      letter-spacing: 4px;
+      color: var(--mexican-gold);
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
 <div class="container">
+  <div class="mexican-border-top">💀 🕯️ 🌼 🕯️ 💀</div>
+  
   <header>
     <h1>A CSALÁD</h1>
     <div class="subtitle">Rezgéskompatibilitási Beavatás</div>
+    <div class="desc">„Egy szertartás után bekerültök a családba, és a szent kötéllel egymáshoz láncolunk titeket.”</div>
   </header>
 
-  <!-- Belépő képernyő -->
-  <div id="step-login">
-    <div class="form-group">
-      <label for="team-name">Csapat Neve / Kódja (pl. 4-es asztal):</label>
-      <input type="text" id="team-name" placeholder="Írd be a csapat nevét...">
-    </div>
-    <div class="form-group">
-      <label for="player-name">A Te Neved / Beceneved:</label>
-      <input type="text" id="player-name" placeholder="Hogy hívnak?">
-    </div>
-    <button class="btn-action btn-primary" onclick="startQuiz()">Tovább a kérdésekhez ➔</button>
+  <!-- Fül választó -->
+  <div class="tab-bar">
+    <button class="tab-btn active" id="tab-fill-btn" onclick="switchTab('fill')">1. Saját Kvíz Kitöltése</button>
+    <button class="tab-btn" id="tab-merge-btn" onclick="switchTab('merge')">2. Családi Egyesítés (2-5 fő)</button>
   </div>
 
-  <!-- Kérdések képernyő -->
-  <div id="step-quiz" class="hidden">
-    <div id="questions-wrapper"></div>
-    <button class="btn-action btn-primary" onclick="submitAnswers()">Válaszok Beküldése 👁️</button>
+  <!-- 1. FÜL: SAJÁT KITÖLTÉS -->
+  <div id="section-fill">
+    <div id="step-login">
+      <div class="form-group">
+        <label for="player-name">Neved / Beceneved a Szertartáson:</label>
+        <input type="text" id="player-name" placeholder="Írd be a neved...">
+      </div>
+      <button class="btn-action btn-primary" onclick="startQuiz()">Lépj a szertartás elé ➔</button>
+    </div>
+
+    <div id="step-quiz" class="hidden">
+      <div id="questions-wrapper"></div>
+      <button class="btn-action btn-primary" onclick="submitAnswers()">Válaszok Lepecsételése 🕯️</button>
+    </div>
+
+    <!-- Saját kód megmutatása a kitöltés után -->
+    <div id="step-personal-result" class="hidden result-screen">
+      <h3 style="color: var(--mexican-gold); font-family: 'Cinzel', serif;">Sikeresen válaszoltál!</h3>
+      <p style="font-size: 0.9rem; margin-top: 8px; color: var(--text-muted);">
+        A szertartásmester elkészítette a személyes beavatási pecsétkódodat:
+      </p>
+
+      <div class="code-box">
+        <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">A te pecsétkódod:</div>
+        <div class="seal-code" id="my-seal-code">-------</div>
+      </div>
+
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+        👉 <strong>Mit csináljatok most?</strong><br>
+        Váltsatok a fenti <strong>„2. Családi Egyesítés”</strong> fülre (ezen a telefonon vagy az egyikőtöknél), és írjátok be egymás kódját az összhang kiderítéséhez!
+      </p>
+
+      <button class="btn-action btn-primary" onclick="switchTab('merge')">Ugrás a Családi Egyesítéshez ➔</button>
+    </div>
   </div>
 
-  <!-- Eredmény képernyő -->
-  <div id="step-result" class="hidden result-screen">
-    <div class="players-list" id="team-status"></div>
-    <div class="percent-box" id="result-percent">---%</div>
-    <div class="verdict-title" id="result-title"></div>
-    <div class="verdict-desc" id="result-desc"></div>
-    
-    <button class="btn-action btn-secondary" onclick="addAnotherMember()">+ Újabb csapattag kitöltése</button>
-    <button class="btn-action btn-primary" onclick="resetAll()">Új Csapat Kezdése</button>
+  <!-- 2. FÜL: CSALÁDI EGYESÍTÉS (TÖBB KÓD ÖSSZEVETÉSE) -->
+  <div id="section-merge" class="hidden">
+    <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px;">
+      Írjátok be az összes veletek lévő csapattag (2, 3, 4 vagy 5 fő) 7 betűs pecsétkódját, amit a saját telefonjukon kaptak:
+    </p>
+
+    <div class="form-group">
+      <label>1. Tag kódja:</label>
+      <input type="text" class="seal-input" placeholder="pl. ACBDADC">
+    </div>
+    <div class="form-group">
+      <label>2. Tag kódja:</label>
+      <input type="text" class="seal-input" placeholder="pl. ACBDAAC">
+    </div>
+    <div class="form-group">
+      <label>3. Tag kódja (opcionális):</label>
+      <input type="text" class="seal-input" placeholder="Ha vagytok hárman...">
+    </div>
+    <div class="form-group">
+      <label>4. Tag kódja (opcionális):</label>
+      <input type="text" class="seal-input" placeholder="Ha vagytok négyen...">
+    </div>
+    <div class="form-group">
+      <label>5. Tag kódja (opcionális):</label>
+      <input type="text" class="seal-input" placeholder="Ha vagytok öten...">
+    </div>
+
+    <button class="btn-action btn-primary" onclick="calculateGroupMatch()">Közös Lélek és Rezgés Elemzése 👁️</button>
+
+    <!-- Csoportos eredmény -->
+    <div id="group-result" class="hidden result-screen">
+      <div class="parchment-banner">
+        <div class="verdict-title" id="res-title">---</div>
+        <div class="percent-box" id="res-percent">---%</div>
+        <div class="verdict-desc" id="res-desc">---</div>
+      </div>
+    </div>
   </div>
+
 </div>
 
 <script>
-  // A 7 KÉRDÉS ÉS VÁLASZAI
+  // KÉRDÉSEK ÉS VÁLASZOK LISTÁJA
   const questions = [
     {
       id: 1,
       badge: "KÉPES / FANTASY",
       title: "1. Milyen dinoszaurusz lennél legszívesebben egy átlagos kedd délután?",
       options: [
-        { key: "A", text: "🦖 T-Rex: Apró kezekkel idegesen kapálózom, és ráüvöltök mindenkire." },
+        { key: "A", text: "🦖 T-Rex: Apró kezekkel kapálózom, és ráüvöltök mindenkire ok nélkül." },
         { key: "B", text: "🦕 Stegosaurus: Békés növényevő, de dühömben mindent leverek a polcról." },
         { key: "C", text: "🦎 Velociraptor: Susmusolok a sarokban és kaotikus terveket szövök." },
         { key: "D", text: "🦅 Pterodactylus: Véletlenül berepültem a Lidlbe és nincs meg a kijárat." }
@@ -277,7 +426,7 @@
       title: "2. Melyik gyümölcs rezonál leginkább a jelenlegi lélekállapotoddal?",
       options: [
         { key: "A", text: "🍋 Citrom: Kívül vidám és sárga, de ha túl közel jössz, összerándulsz tőlem." },
-        { key: "B", text: "🍌 Barna túlérett banán: Fáradtan fekszem a kosár alján, banánkenyérnek még jó." },
+        { key: "B", text: "🍌 Barna banán: Fáradtan fekszem a kosár alján, banánkenyérnek még jó." },
         { key: "C", text: "🍍 Ananász: Szúrós, agresszív külső, belül meglepően édes." },
         { key: "D", text: "🍉 Görögdinnye: Nehéz, gurul, és ha felrobbansz, minden ragadni fog." }
       ]
@@ -299,7 +448,7 @@
       title: "4. Melyik macska definiálja a mostani pillanatodat?",
       options: [
         { key: "A", text: "😾 Morcos macska: Bárki hozzám ér vagy megszólít, annak annyi." },
-        { key: "B", text: "🙀 Pánikoló tág pupillás macska: Gőzöm sincs, mi van, de félek." },
+        { key: "B", text: "🙀 Pánikoló macska: Tág pupillák, gőzöm sincs mi van, de félek." },
         { key: "C", text: "🛋️ Lefolyó tészta macska: Folyékony halmazállapotú vagyok a kanapén." },
         { key: "D", text: "🌪️ Függönyön pörgő macska: Éjjel 3 van, pörög az agyam, lángol a világ!" }
       ]
@@ -333,7 +482,7 @@
       options: [
         { key: "A", text: "A konyhában, mély beszélgetésben a házigazda kutyájával." },
         { key: "B", text: "A legmélyebb fotelben, próbálok észrevétlenül aludni." },
-        { key: "C", text: "A sarokban, ahol idegeneknek magyarázom a világösszeesküvést." },
+        { key: "C", text: "A dohányzó sarokban, idegeneknek magyarázom a világösszeesküvést." },
         { key: "D", text: "Én vezetem a spontán vonatozást a tánctér közepén." }
       ]
     }
@@ -341,145 +490,153 @@
 
   let selectedAnswers = {};
 
-  function startQuiz() {
-    const team = document.getElementById("team-name").value.trim();
-    const player = document.getElementById("player-name").value.trim();
+  function switchTab(tab) {
+    if (tab === 'fill') {
+      document.getElementById('section-fill').classList.remove('hidden');
+      document.getElementById('section-merge').classList.add('hidden');
+      document.getElementById('tab-fill-btn').classList.add('active');
+      document.getElementById('tab-merge-btn').classList.remove('active');
+    } else {
+      document.getElementById('section-fill').classList.add('hidden');
+      document.getElementById('section-merge').classList.remove('hidden');
+      document.getElementById('tab-fill-btn').classList.remove('active');
+      document.getElementById('tab-merge-btn').classList.add('active');
+    }
+  }
 
-    if (!team || !player) {
-      alert("Kérlek add meg a csapat és a te nevedet is!");
+  function startQuiz() {
+    const name = document.getElementById("player-name").value.trim();
+    if (!name) {
+      alert("Kérlek add meg a neved a szertartáshoz!");
       return;
     }
-
     renderQuestions();
     document.getElementById("step-login").classList.add("hidden");
     document.getElementById("step-quiz").classList.remove("hidden");
     window.scrollTo(0,0);
   }
 
+  // BIZTOS STRING ÖSSZEFŰZÉS – kiküszöböli a ${opt.text} hibát
   function renderQuestions() {
     const wrapper = document.getElementById("questions-wrapper");
     wrapper.innerHTML = "";
 
-    questions.forEach(q => {
+    for (let i = 0; i < questions.length; i++) {
+      const q = questions[i];
       const qDiv = document.createElement("div");
       qDiv.className = "question-block";
-      qDiv.innerHTML = `
-        <span class="question-badge">${q.badge}</span>
-        <div class="question-title">${q.title}</div>
-        <div class="options" id="opt-group-${q.id}">
-          ${q.options.map(opt => `
-            <button type="button" class="option-btn" onclick="selectOption(${q.id}, '${opt.key}', this)">
-              \${opt.text}
-            </button>
-          `).join("")}
-        </div>
-      `;
+
+      let optHtml = "";
+      for (let j = 0; j < q.options.length; j++) {
+        const opt = q.options[j];
+        optHtml += '<button type="button" class="option-btn" onclick="selectOption(' + q.id + ', \'' + opt.key + '\', this)">' +
+                   opt.text +
+                   '</button>';
+      }
+
+      qDiv.innerHTML = '<span class="question-badge">' + q.badge + '</span>' +
+                       '<div class="question-title">' + q.title + '</div>' +
+                       '<div class="options" id="opt-group-' + q.id + '">' +
+                       optHtml +
+                       '</div>';
       wrapper.appendChild(qDiv);
-    });
+    }
   }
 
   function selectOption(qId, key, btn) {
     selectedAnswers[qId] = key;
-    const parent = document.getElementById(`opt-group-${qId}`);
-    parent.querySelectorAll(".option-btn").forEach(b => b.classList.remove("selected"));
+    const parent = document.getElementById("opt-group-" + qId);
+    const buttons = parent.querySelectorAll(".option-btn");
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].classList.remove("selected");
+    }
     btn.classList.add("selected");
   }
 
   function submitAnswers() {
     if (Object.keys(selectedAnswers).length < questions.length) {
-      alert("Még nem válaszoltál minden kérdésre!");
+      alert("Még nem válaszoltál minden kérdésre a szertartáson!");
       return;
     }
 
-    const team = document.getElementById("team-name").value.trim().toLowerCase();
-    const player = document.getElementById("player-name").value.trim();
+    // 7 betűs pecsétkód előállítása (pl. ACBDADC)
+    let sealCode = "";
+    for (let i = 1; i <= 7; i++) {
+      sealCode += selectedAnswers[i];
+    }
 
-    // Mentés LocalStorage-ba (akár egy telefonon, akár több ablakban nézik)
-    let teamData = JSON.parse(localStorage.getItem("csalad_team_" + team) || "[]");
-    teamData.push({
-      player: player,
-      answers: selectedAnswers
-    });
-    localStorage.setItem("csalad_team_" + team, JSON.stringify(teamData));
+    document.getElementById("my-seal-code").innerText = sealCode;
+    document.getElementById("step-quiz").classList.add("hidden");
+    document.getElementById("step-personal-result").classList.remove("hidden");
 
-    calculateResults(teamData);
+    // Az első mezőbe automatikusan be is másoljuk
+    const inputs = document.querySelectorAll(".seal-input");
+    if (inputs.length > 0 && !inputs[0].value) {
+      inputs[0].value = sealCode;
+    }
+
+    window.scrollTo(0,0);
   }
 
-  function calculateResults(members) {
-    document.getElementById("step-quiz").classList.add("hidden");
-    document.getElementById("step-result").classList.remove("hidden");
+  // TÖBB EMBER KÓDJÁNAK ÖSSZEHASONLÍTÁSA
+  function calculateGroupMatch() {
+    const inputs = document.querySelectorAll(".seal-input");
+    let codes = [];
 
-    let statusHtml = `<strong>Csapat tagjai (${members.length} fő):</strong><br>`;
-    members.forEach(m => {
-      statusHtml += `• ${m.player}<br>`;
+    inputs.forEach(input => {
+      let val = input.value.trim().toUpperCase();
+      if (val.length === 7) {
+        codes.push(val);
+      }
     });
-    document.getElementById("team-status").innerHTML = statusHtml;
 
-    // Ha még csak 1 ember töltötte ki
-    if (members.length === 1) {
-      document.getElementById("result-percent").innerText = "⏳ Várakozás";
-      document.getElementById("result-title").innerText = "Még csak te töltötted ki!";
-      document.getElementById("result-desc").innerText = "Add oda a telefont a csapatod következő tagjának, hogy összevessük a válaszaitokat!";
+    if (codes.length < 2) {
+      alert("Legalább 2 játékos érvényes 7 betűs pecsétkódját add meg az összevetéshez!");
       return;
     }
 
-    // PÁROS VAGY TÖBBSZEMÉLYES ÖSSZEHASONLÍTÁS (Átfedés számítás)
     let totalPairs = 0;
     let matchPairs = 0;
 
-    for (let q = 1; q <= 7; q++) {
-      for (let i = 0; i < members.length; i++) {
-        for (let j = i + 1; j < members.length; j++) {
+    for (let q = 0; q < 7; q++) {
+      for (let i = 0; i < codes.length; i++) {
+        for (let j = i + 1; j < codes.length; j++) {
           totalPairs++;
-          if (members[i].answers[q] === members[j].answers[q]) {
+          if (codes[i][q] === codes[j][q]) {
             matchPairs++;
           }
         }
       }
     }
 
-    let rawScore = Math.round((matchPairs / totalPairs) * 100);
+    let matchRatio = Math.round((matchPairs / totalPairs) * 100);
 
-    let finalPercent = "";
     let title = "";
+    let percentText = "";
     let desc = "";
 
-    if (rawScore >= 70) {
-      finalPercent = "1000% 🔥";
+    if (matchRatio >= 65) {
+      percentText = "1000% 🔥";
       title = "ABSZOLÚT CINEMA 🍿🎬";
       desc = "Ti nemcsak hasonlítotok, de konkrétan egy közös agyféltekén osztoztok! Ugyanaz a kaotikus rezgés, ugyanaz az éjféli hűtő-bámulás. Hivatalosan is összetartoztok, a beavatási kötélre már szinte nincs is szükség!";
-    } else if (rawScore >= 40) {
-      finalPercent = "75% ✨";
-      title = "CSALÁDI ALAPANYAG (Némi vadhajtással) 🤝";
+    } else if (matchRatio >= 38) {
+      percentText = "75% ✨";
+      title = "CSALÁDI ALAPANYAG 🤝";
       desc = "Erős a harmónia! Van egy-két fura kattanásotok, de a lényegben egyetértetek: ha szétcsapni kell a Golfot vagy mélyen hallgatni a sarokban, benne vagytok együtt. Mehet a szertartás!";
-    } else if (rawScore >= 15) {
-      finalPercent = "20% 🧨";
+    } else if (matchRatio >= 18) {
+      percentText = "20% 🧨";
       title = "UPSZ... ITT LESZNEK VESZEKEDÉSEK 🥊";
       desc = "Hát, a túlélési esélyeitek 50-50%. Az egyikőtök banánként fonnyadna a kanapén, miközben a másik Golfot forgatna és a mikrón pörögne. De pont a feszültség miatt lesz jó a csapat – a kötél legalább nem enged elszökni!";
     } else {
-      finalPercent = "0% 🛸";
+      percentText = "0% 🛸";
       title = "TELJESEN MÁS GALAXIS 👽";
       desc = "Hogy kerültetek ti egy asztalhoz? Konkrétan más bolygóról jöttetek. De A CSALÁD nem válogat: a beavatás után kénytelenek lesztek megszokni egymás furcsaságait!";
     }
 
-    document.getElementById("result-percent").innerText = finalPercent;
-    document.getElementById("result-title").innerText = title;
-    document.getElementById("result-desc").innerText = desc;
-    window.scrollTo(0,0);
-  }
-
-  function addAnotherMember() {
-    selectedAnswers = {};
-    document.getElementById("player-name").value = "";
-    document.getElementById("step-result").classList.add("hidden");
-    document.getElementById("step-login").classList.remove("hidden");
-    window.scrollTo(0,0);
-  }
-
-  function resetAll() {
-    const team = document.getElementById("team-name").value.trim().toLowerCase();
-    localStorage.removeItem("csalad_team_" + team);
-    location.reload();
+    document.getElementById("res-title").innerText = title;
+    document.getElementById("res-percent").innerText = percentText;
+    document.getElementById("res-desc").innerText = desc;
+    document.getElementById("group-result").classList.remove("hidden");
   }
 </script>
 </body>
